@@ -51,7 +51,3 @@ Antes de ejecutar el frontend, asegúrate de que:
 Esto es necesario para evitar errores al realizar solicitudes `fetch` desde el frontend hacia la API.
 
 ---
-
-## 📬 Autor
-
-Desarrollado por [Mars Núñez](https://github.com/MarsNunez)

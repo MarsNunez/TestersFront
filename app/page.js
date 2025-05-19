@@ -64,9 +64,10 @@ const MensajeToast = ({ mensaje }) => (
         animate="visible"
         exit="exit"
         transition={{ duration: 0.5, ease: "easeInOut" }}
-        className={`fixed top-8 left-1/2 -translate-x-1/2 px-8 py-4 rounded-xl text-white shadow-2xl z-50 border-l-8 ${
-          classMensaje[mensaje.tipo]
-        } flex items-center gap-3 max-w-lg`}
+        className={`fixed top-8 left-1/2 -translate-x-1/2 px-8 py-4 rounded-xl 
+          text-white shadow-2xl z-50 border-l-8 ${
+            classMensaje[mensaje.tipo]
+          } flex items-center gap-3 max-w-lg`}
       >
         {mensaje.tipo === "success" && <Check size={24} />}
         {mensaje.tipo === "error" && <AlertCircle size={24} />}
@@ -79,7 +80,10 @@ const MensajeToast = ({ mensaje }) => (
 );
 
 const SkeletonCard = () => (
-  <div className="bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-8 animate-pulse flex flex-col gap-4 border border-gray-200 dark:border-gray-700">
+  <div
+    className="bg-white dark:bg-gray-800 shadow-xl rounded-2xl p-8 animate-pulse 
+  flex flex-col gap-4 border border-gray-200 dark:border-gray-700"
+  >
     <div className="flex justify-between">
       <div className="h-6 w-40 bg-gray-300 dark:bg-gray-700 rounded" />
       <div className="h-6 w-20 bg-gray-300 dark:bg-gray-700 rounded" />
@@ -162,7 +166,9 @@ const ThemeToggle = ({ tema, toggle }) => (
     whileHover={{ scale: 1.15, rotate: 15 }}
     whileTap={{ scale: 0.9 }}
     onClick={toggle}
-    className="fixed bottom-10 right-10 bg-gradient-to-br from-gray-900 to-gray-800 dark:from-gray-200 dark:to-gray-300 text-white dark:text-gray-800 p-5 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 grid place-items-center z-40"
+    className="fixed bottom-10 right-10 bg-gradient-to-br from-gray-900 to-gray-800 
+    dark:from-gray-200 dark:to-gray-300 text-white dark:text-gray-800 p-5 rounded-full shadow-2xl 
+    hover:shadow-3xl transition-all duration-300 grid place-items-center z-40"
     title={tema === "light" ? "Cambiar a modo oscuro" : "Cambiar a modo claro"}
   >
     {tema === "light" ? <Moon size={28} /> : <Sun size={28} />}
@@ -193,7 +199,8 @@ const Estadisticas = ({ productos }) => {
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-gray-800 rounded-3xl shadow-2xl p-8 mb-10 border border-gray-700 flex justify-between items-center"
+      className="bg-gray-800 rounded-3xl shadow-2xl p-8 mb-10 border border-gray-700 
+      flex justify-between items-center"
     >
       <div className="flex items-center gap-4">
         <div className="p-3 bg-blue-900 rounded-full">
@@ -239,7 +246,8 @@ const FilterOptions = ({
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
-    className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-8 mb-10 border border-gray-200 dark:border-gray-700"
+    className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-8 mb-10 border 
+    border-gray-200 dark:border-gray-700"
   >
     <h3 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100 flex items-center gap-3">
       <Filter size={24} /> Opciones de Filtrado
@@ -254,7 +262,8 @@ const FilterOptions = ({
           placeholder="Buscar por nombre..."
           value={textoBusqueda}
           onChange={(e) => setTextoBusqueda(e.target.value)}
-          className="w-full px-5 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 transition"
+          className="w-full px-5 py-3 border rounded-lg focus:outline-none focus:ring-2 
+          focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 transition"
         />
       </div>
       <div>
@@ -264,7 +273,8 @@ const FilterOptions = ({
         <select
           value={filtroPrecio}
           onChange={(e) => setFiltroPrecio(e.target.value)}
-          className="w-full px-5 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 transition"
+          className="w-full px-5 py-3 border rounded-lg focus:outline-none focus:ring-2 
+          focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 transition"
         >
           <option value="all">Todos</option>
           <option value="0-50">S/. 0 - 50</option>
@@ -311,7 +321,8 @@ const HistorialAcciones = ({ historial }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
-    className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-8 mb-10 border border-gray-200 dark:border-gray-700"
+    className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-8 mb-10 border 
+    border-gray-200 dark:border-gray-700"
   >
     <h3 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100 flex items-center gap-3">
       <History size={24} /> Historial de Acciones
@@ -413,6 +424,7 @@ export default function InventoryAppExtended() {
     precio: "",
     descripcion: "",
   });
+
   const [productos, setProductos] = useState([]);
   const [editandoId, setEditandoId] = useState(null);
   const [mensaje, setMensaje] = useState(null);
@@ -426,6 +438,7 @@ export default function InventoryAppExtended() {
     id: null,
     nombre: "",
   });
+
   const [tema, setTema] = useState("light");
   const [mostrarEstadisticas, setMostrarEstadisticas] = useState(true);
   const [mostrarHistorial, setMostrarHistorial] = useState(true);
@@ -489,6 +502,7 @@ export default function InventoryAppExtended() {
         (p) => `${p.id},${p.nombre},${p.precio},${p.descripcion || ""}`
       ),
     ].join("\n");
+
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
     saveAs(blob, `inventario_${new Date().toISOString().split("T")[0]}.csv`);
     mostrarMensaje("Inventario exportado como CSV.", "success");
@@ -527,6 +541,7 @@ export default function InventoryAppExtended() {
         mostrarMensaje("Producto agregado exitosamente.", "success");
         agregarHistorial(`Producto "${producto.nombre}" agregado`, "agregar");
       }
+
       setProducto({ nombre: "", precio: "", descripcion: "" });
       setEditandoId(null);
       fetchProductos();
@@ -565,12 +580,14 @@ export default function InventoryAppExtended() {
       precio: producto.precio,
       descripcion: producto.descripcion || "",
     });
+
     setEditandoId(producto.id);
   };
 
   const handleCancelar = () => {
     setProducto({ nombre: "", precio: "", descripcion: "" });
     setEditandoId(null);
+
     mostrarMensaje("Edición cancelada.", "info");
   };
 
@@ -622,7 +639,10 @@ export default function InventoryAppExtended() {
    ***************************/
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 dark:from-gray-950 dark:to-gray-900 transition-colors duration-700">
+    <div
+      className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-200 dark:from-gray-950 
+    dark:to-gray-900 transition-colors duration-700"
+    >
       {/* ----------- Tema toggle ----------- */}
       <ThemeToggle tema={tema} toggle={toggleTema} />
 
@@ -635,7 +655,8 @@ export default function InventoryAppExtended() {
           variants={variants}
           initial="hidden"
           animate="visible"
-          className="text-6xl font-extrabold text-center mb-16 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600"
+          className="text-6xl font-extrabold text-center mb-16 text-transparent bg-clip-text 
+          bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600"
         >
           Sistema de Gestión de Inventario
         </motion.h1>
@@ -651,7 +672,8 @@ export default function InventoryAppExtended() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setMostrarEstadisticas((prev) => !prev)}
-              className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-6 py-3 rounded-lg flex items-center gap-2"
+              className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 
+              px-6 py-3 rounded-lg flex items-center gap-2"
             >
               <BarChart2 size={20} />
               {mostrarEstadisticas ? "Ocultar" : "Mostrar"} Estadísticas
@@ -660,7 +682,8 @@ export default function InventoryAppExtended() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setMostrarHistorial((prev) => !prev)}
-              className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-6 py-3 rounded-lg flex items-center gap-2"
+              className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-6 
+              py-3 rounded-lg flex items-center gap-2"
             >
               <History size={20} />
               {mostrarHistorial ? "Ocultar" : "Mostrar"} Historial
@@ -685,7 +708,8 @@ export default function InventoryAppExtended() {
           variants={variants}
           initial="hidden"
           animate="visible"
-          className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-10 mb-12 border border-gray-200 dark:border-gray-700"
+          className="bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-10 mb-12 border 
+          border-gray-200 dark:border-gray-700"
         >
           <h2 className="text-4xl font-bold mb-8 text-gray-800 dark:text-gray-100 flex items-center gap-3">
             <Package size={32} />
@@ -701,7 +725,8 @@ export default function InventoryAppExtended() {
                 name="nombre"
                 value={producto.nombre}
                 onChange={handleInputChange}
-                className="w-full px-5 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 transition"
+                className="w-full px-5 py-3 border rounded-lg focus:outline-none focus:ring-2 
+                focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 transition"
                 required
                 placeholder="Ej. Smartphone Samsung Galaxy"
               />
@@ -715,7 +740,9 @@ export default function InventoryAppExtended() {
                 name="precio"
                 value={producto.precio}
                 onChange={handleInputChange}
-                className="w-full px-5 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 transition"
+                className="w-full px-5 py-3 border rounded-lg focus:outline-none 
+                focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100 
+                dark:border-gray-700 transition"
                 required
                 step="0.01"
                 min="0.01"
@@ -742,7 +769,9 @@ export default function InventoryAppExtended() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               type="submit"
-              className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-8 py-3 rounded-lg hover:from-blue-700 hover:to-blue-900 transition flex items-center gap-2 shadow-lg"
+              className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-8 
+              py-3 rounded-lg hover:from-blue-700 hover:to-blue-900 transition flex 
+              items-center gap-2 shadow-lg"
             >
               <Check size={24} />{" "}
               {editandoId ? "Actualizar" : "Agregar Producto"}
@@ -753,7 +782,9 @@ export default function InventoryAppExtended() {
                 whileTap={{ scale: 0.95 }}
                 type="button"
                 onClick={handleCancelar}
-                className="bg-gradient-to-r from-gray-500 to-gray-700 text-white px-8 py-3 rounded-lg hover:from-gray-600 hover:to-gray-800 transition flex items-center gap-2 shadow-lg"
+                className="bg-gradient-to-r from-gray-500 to-gray-700 text-white 
+                px-8 py-3 rounded-lg hover:from-gray-600 hover:to-gray-800 transition 
+                flex items-center gap-2 shadow-lg"
               >
                 <X size={24} /> Cancelar
               </motion.button>
@@ -789,7 +820,8 @@ export default function InventoryAppExtended() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-center py-16 bg-white dark:bg-gray-900 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-700"
+              className="text-center py-16 bg-white dark:bg-gray-900 rounded-3xl 
+              shadow-2xl border border-gray-200 dark:border-gray-700"
             >
               <AlertCircle
                 size={48}
@@ -809,7 +841,9 @@ export default function InventoryAppExtended() {
                   animate="visible"
                   exit="exit"
                   transition={{ duration: 0.4 }}
-                  className="bg-white dark:bg-gray-900 shadow-2xl rounded-3xl p-8 flex flex-col md:flex-row items-start md:items-center justify-between border border-gray-200 dark:border-gray-700 hover:shadow-3xl transition-shadow duration-500"
+                  className="bg-white dark:bg-gray-900 shadow-2xl rounded-3xl p-8 flex flex-col 
+                  md:flex-row items-start md:items-center justify-between border border-gray-200 
+                  dark:border-gray-700 hover:shadow-3xl transition-shadow duration-500"
                 >
                   <div className="flex-1">
                     <div className="flex items-center gap-4 mb-3">
@@ -831,7 +865,9 @@ export default function InventoryAppExtended() {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => handleEditar(p)}
-                      className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-6 py-3 rounded-lg hover:from-yellow-600 hover:to-yellow-700 transition flex items-center gap-2 shadow-md"
+                      className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-6 
+                      py-3 rounded-lg hover:from-yellow-600 hover:to-yellow-700 transition flex 
+                      items-center gap-2 shadow-md"
                     >
                       <Edit3 size={20} /> Editar
                     </motion.button>
@@ -839,7 +875,8 @@ export default function InventoryAppExtended() {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => solicitarEliminar(p.id, p.nombre)}
-                      className="bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 rounded-lg hover:from-red-600 hover:to-red-700 transition flex items-center gap-2 shadow-md"
+                      className="bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-3 
+                      rounded-lg hover:from-red-600 hover:to-red-700 transition flex items-center gap-2 shadow-md"
                     >
                       <Trash2 size={20} /> Eliminar
                     </motion.button>

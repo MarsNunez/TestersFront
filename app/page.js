@@ -719,6 +719,7 @@ export default function InventoryAppExtended() {
                 required
                 step="0.01"
                 min="0.01"
+                max="1000000"
                 placeholder="Ej. 2999.99"
               />
             </div>

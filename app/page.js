@@ -229,8 +229,8 @@ const Estadisticas = ({ productos }) => {
 };
 
 const FilterOptions = ({
-  busqueda,
-  setBusqueda,
+  textoBusqueda,
+  setTextoBusqueda,
   sort,
   setSort,
   filtroPrecio,
@@ -252,8 +252,8 @@ const FilterOptions = ({
         <input
           type="text"
           placeholder="Buscar por nombre..."
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
+          value={textoBusqueda}
+          onChange={(e) => setTextoBusqueda(e.target.value)}
           className="w-full px-5 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700 transition"
         />
       </div>
@@ -417,7 +417,8 @@ export default function InventoryAppExtended() {
   const [editandoId, setEditandoId] = useState(null);
   const [mensaje, setMensaje] = useState(null);
   const [cargando, setCargando] = useState(true);
-  const [busqueda, setBusqueda] = useState("");
+  const [textoBusqueda, setTextoBusqueda] = useState(""); // Nuevo estado para el input de búsqueda
+  const [busqueda, setBusqueda] = useState(""); // Estado para el valor de búsqueda usado en el filtrado
   const [sort, setSort] = useState("none");
   const [filtroPrecio, setFiltroPrecio] = useState("all");
   const [modalEliminar, setModalEliminar] = useState({
@@ -443,6 +444,15 @@ export default function InventoryAppExtended() {
     document.documentElement.classList.toggle("dark", tema === "dark");
     guardarTemaEnLS(tema);
   }, [tema]);
+
+  // Efecto para manejar la búsqueda con debounce
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setBusqueda(textoBusqueda);
+    }, 200);
+
+    return () => clearTimeout(handler);
+  }, [textoBusqueda]);
 
   /* --------------------- Funciones de utilidad ---------------------- */
 
@@ -567,29 +577,39 @@ export default function InventoryAppExtended() {
   const toggleTema = () =>
     setTema((prev) => (prev === "light" ? "dark" : "light"));
 
-  const debouncedSearch = useMemo(
-    () => debounce((value) => setBusqueda(value), 400),
-    []
-  );
-
   /* ---------------------- Lógica de filtrado y paginación ------------------------ */
 
   const productosFiltrados = useMemo(() => {
-    return productos
-      .filter((p) => p.nombre.toLowerCase().includes(busqueda.toLowerCase()))
+    console.log("Filtrando productos con:", { busqueda, filtroPrecio, sort });
+
+    let filtered = productos
+      .filter((p) => {
+        const nombre = p.nombre ? p.nombre.toLowerCase() : "";
+        const matchesSearch = nombre.includes(busqueda.toLowerCase());
+        return matchesSearch;
+      })
       .filter((p) => {
         const precio = parseFloat(p.precio);
-        if (filtroPrecio === "0-50") return precio <= 50;
+        if (isNaN(precio)) return false; // Excluir precios no válidos
+        if (filtroPrecio === "all") return true;
+        if (filtroPrecio === "0-50") return precio >= 0 && precio <= 50;
         if (filtroPrecio === "50-100") return precio > 50 && precio <= 100;
         if (filtroPrecio === "100+") return precio > 100;
         return true;
-      })
-      .sort((a, b) => {
-        if (sort === "asc") return parseFloat(a.precio) - parseFloat(b.precio);
-        if (sort === "desc") return parseFloat(b.precio) - parseFloat(a.precio);
-        return 0;
       });
-  }, [productos, busqueda, sort, filtroPrecio]);
+
+    // Ordenar después de filtrar
+    filtered = filtered.sort((a, b) => {
+      const precioA = parseFloat(a.precio);
+      const precioB = parseFloat(b.precio);
+      if (sort === "asc") return precioA - precioB;
+      if (sort === "desc") return precioB - precioA;
+      return 0;
+    });
+
+    console.log("Productos filtrados:", filtered);
+    return filtered;
+  }, [productos, busqueda, filtroPrecio, sort]);
 
   const totalPaginas = Math.ceil(productosFiltrados.length / ITEMS_POR_PAGINA);
   const productosPaginados = productosFiltrados.slice(
@@ -702,7 +722,7 @@ export default function InventoryAppExtended() {
                 placeholder="Ej. 2999.99"
               />
             </div>
-            <div className="md:col-span-2">
+            {/* <div className="md:col-span-2">
               <label className="block text-gray-700 dark:text-gray-300 mb-2 font-medium">
                 Descripción (Opcional)
               </label>
@@ -714,7 +734,7 @@ export default function InventoryAppExtended() {
                 rows="5"
                 placeholder="Describe el producto en detalle..."
               />
-            </div>
+            </div> */}
           </div>
           <div className="flex gap-4 mt-8">
             <motion.button
@@ -745,8 +765,8 @@ export default function InventoryAppExtended() {
 
         {/* ------------------ Filtros ------------------ */}
         <FilterOptions
-          busqueda={busqueda}
-          setBusqueda={debouncedSearch}
+          textoBusqueda={textoBusqueda}
+          setTextoBusqueda={setTextoBusqueda}
           sort={sort}
           setSort={setSort}
           filtroPrecio={filtroPrecio}
